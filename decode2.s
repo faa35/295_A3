@@ -8,6 +8,7 @@ decode2:
 	endbr64
 	subq	%rdx, %rsi
 	imulq	%rsi, %rdi
+	salq	$63, %rsi
 	sarq	$63, %rsi
 	movq	%rdi, %rax
 	xorq	%rsi, %rax
@@ -25,36 +26,22 @@ main:
 .LFB24:
 	.cfi_startproc
 	endbr64
-	pushq	%rbx
+	subq	$8, %rsp
 	.cfi_def_cfa_offset 16
-	.cfi_offset 3, -16
-	movl	$3, %edx
-	movl	$5, %esi
-	movl	$10, %edi
+	movl	$7, %edx
+	movl	$2, %esi
+	movl	$5, %edi
 	call	decode2
 	movq	%rax, %r9
-	movl	$3, %r8d
-	movl	$5, %ecx
-	movl	$10, %edx
-	leaq	.LC0(%rip), %rbx
-	movq	%rbx, %rsi
-	movl	$1, %edi
-	movl	$0, %eax
-	call	__printf_chk@PLT
+	movl	$7, %r8d
+	movl	$2, %ecx
 	movl	$5, %edx
-	movl	$3, %esi
-	movl	$10, %edi
-	call	decode2
-	movq	%rax, %r9
-	movl	$5, %r8d
-	movl	$3, %ecx
-	movl	$10, %edx
-	movq	%rbx, %rsi
+	leaq	.LC0(%rip), %rsi
 	movl	$1, %edi
 	movl	$0, %eax
 	call	__printf_chk@PLT
 	movl	$0, %eax
-	popq	%rbx
+	addq	$8, %rsp
 	.cfi_def_cfa_offset 8
 	ret
 	.cfi_endproc
